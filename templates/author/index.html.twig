@@ -4,7 +4,8 @@
 
 {% block body %}
     <h1>Authors in Library</h1>
-    List:
+    <a href="{{path('author_create')}}">Create new Author</a>
+    <p>List:</p>
     <ul>
         {% for author in authors %}
             <li>{{author.name}} {{author.surname}} 
