@@ -3,19 +3,31 @@
 {% block title %}Books list{% endblock %}
 
 {% block body %}
-    <h1>Books in Library</h1>
-    <a href="{{path('book_create')}}">Create new Book</a>
-    <p>List:</p>
-    <ul>
-        {% for book in books %}
-            <li>{{book.title}} 
-            {{book.author.name}} {{book.author.surname}}
-            <a href="{{path('book_edit', {id: book.id})}}">Edit</a>
-            <form action="{{path('book_delete', {id:book.id})}}" method="POST">
-                <button type="submit">DELETE</button>
-            </form>
-            </li>
-        {% endfor %}
-    </ul>
-
+<h1>Books in Library</h1>
+<div class="hero-bg"></div>
+<div class="menu">
+    <a class="nav checked" href="{{path('book_index')}}">Book list</a>
+    <a class="nav" href="{{path('book_create')}}">New Book</a>
+    <a class="nav" href="{{path('author_index')}}">Author list</a>
+    <a class="nav" href="{{path('author_create')}}">New Author</a>
+</div>
+<div class="container">
+        {# <p>List of Books:</p> #}
+        <ul class="book-list">
+            {% for book in books %}
+                <div class="book">
+                    {# <img class="preview" src="{{ asset('img/book-rocket.png') }}" alt="Kook preview"> #}
+                    <div class="preview"></div>
+                    <p class="title">{{book.title}}</p>
+                    <p class="name">{{book.author.name}} {{book.author.surname}}</p>
+                    <div class="buttons">
+                        <a class="edit-btn" href="{{path('book_edit', {id: book.id})}}">Edit</a>
+                        <form action="{{path('book_delete', {id:book.id})}}" method="POST">
+                            <button class="submit-btn" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </ul>
+</div>
 {% endblock %}
