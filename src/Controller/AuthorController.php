@@ -16,8 +16,8 @@ class AuthorController extends AbstractController
     public function index(): Response
     {
         $authors = $this->getDoctrine()
-                    ->getRepository(Author::class)
-                    ->findAll();
+            ->getRepository(Author::class)
+            ->findAll();
 
         return $this->render('author/index.html.twig', [
             'controller_name' => 'AuthorController',
@@ -39,9 +39,9 @@ class AuthorController extends AbstractController
     public function store(request $r): Response
     {
         $author = new Author;
-        $author->
-            setName($r->request->get('author_name'))->
-            setSurname($r->request->get('author_surname'));
+        $author
+            ->setName($r->request->get('author_name'))
+            ->setSurname($r->request->get('author_surname'));
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($author);
@@ -56,8 +56,8 @@ class AuthorController extends AbstractController
     public function edit(int $id): Response
     {
         $author = $this->getDoctrine()
-                        ->getRepository(Author::class)
-                        ->find($id);
+            ->getRepository(Author::class)
+            ->find($id);
 
         return $this->render('author/edit.html.twig', [
             'author' => $author
@@ -70,12 +70,12 @@ class AuthorController extends AbstractController
     public function update(request $r, $id): Response
     {
         $author = $this->getDoctrine()
-                        ->getRepository(Author::class)
-                        ->find($id);
-        
-        $author->
-            setName($r->request->get('author_name'))->
-            setSurname($r->request->get('author_surname'));
+            ->getRepository(Author::class)
+            ->find($id);
+
+        $author
+            ->setName($r->request->get('author_name'))
+            ->setSurname($r->request->get('author_surname'));
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($author);
@@ -90,8 +90,12 @@ class AuthorController extends AbstractController
     public function delete($id): Response
     {
         $author = $this->getDoctrine()
-                        ->getRepository(Author::class)
-                        ->find($id);
+            ->getRepository(Author::class)
+            ->find($id);
+
+        if ($author->getBooks()->count() > 0) {
+            return new Response('Selected Author (#id: '.$author->getId().') can not be deleted, because '.$author->getName().' '.$author->getSurname().' has '.$author->getBooks()->count().' books.');
+        }
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($author);

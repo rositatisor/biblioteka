@@ -44,9 +44,9 @@ class BookController extends AbstractController
      */
     public function store(request $r): Response
     {
-        // $author = $this->getDoctrine()
-        //     ->getRepository(Author::class)
-        //     ->find($r->request->get('book_author_id'));
+        $author = $this->getDoctrine()
+            ->getRepository(Author::class)
+            ->find($r->request->get('book_author_id'));
 
         $book = new Book;
         $book
@@ -54,7 +54,7 @@ class BookController extends AbstractController
             ->setIsbn($r->request->get('book_isbn'))
             ->setPages($r->request->get('book_pages'))
             ->setAbout($r->request->get('book_about'))
-            ->setAuthorId($r->request->get('book_author_id'));
+            ->setAuthor($author);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);
@@ -91,16 +91,16 @@ class BookController extends AbstractController
             ->getRepository(Book::class)
             ->find($id);
 
-        // $author = $this->getDoctrine()
-        //     ->getRepository(Author::class)
-        //     ->find($r->request->get('books_author'));
+        $author = $this->getDoctrine()
+            ->getRepository(Author::class)
+            ->find($r->request->get('books_author'));
         
         $book
             ->setTitle($r->request->get('book_title'))
             ->setIsbn($r->request->get('book_isbn'))
             ->setPages($r->request->get('book_pages'))
             ->setAbout($r->request->get('book_about'))
-            ->setAuthorId($r->request->get('books_author'));
+            ->setAuthor($author);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);
