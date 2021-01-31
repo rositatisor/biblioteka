@@ -5,9 +5,7 @@
 BIT task: to create the Library application with PHP Symfony framework.
 This repository is for educational porpuses only.
 
-<img width="550" alt="Capture" src="./public/img/screenshot.png">
-
-![Screenshot](/public/img/screenshot.png)
+<img width="550" alt="Capture" src="https://raw.githubusercontent.com/rositatisor/library/master/public/img/screenshot.PNG">
 
 ### Authors 
 [Rosita](https://github.com/rositatisor)
