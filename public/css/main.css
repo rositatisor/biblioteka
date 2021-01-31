@@ -16,11 +16,65 @@ a {
     background-size: 40%;
 }
 
+.hero-bg.create {
+    background-image: url("../img/hero-create2.gif");
+    background-color: #5A85FF;
+    background-size: 25%;
+}
+
 .container {
     display: inline-block;
     position: relative;
     width: 80vw;
     margin: 0vh 9vw;
+}
+
+.container.author {
+    width: 40vw;
+    margin: 0vh 29vw;
+}
+
+.container.author .left {
+    display: inline-block;
+    float: left;
+    width: 30%;
+}
+
+.container.author .right {
+    display: inline-block;
+    float: left;
+    width: 70%;
+}
+
+.container.create {
+    width: 30vw;
+    margin: 0vh 34vw;
+}
+
+ul {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
+.new {
+    display: inline-block;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.new > p {
+    display: inline-block;
+    width: 20%;
+    text-align: right;
+}
+
+.new > input,
+.new > textarea,
+.new > select {
+    display: inline-block;
+    float: right;
+    width: 72%;
 }
 
 h1 {
@@ -29,6 +83,11 @@ h1 {
     width: 100%;
     text-align: center;
     color: #3A3B64;
+}
+
+h1.create {
+    color: #000;
+    text-shadow: 1px 1px 2px rgb(180, 200, 255);
 }
 
 .menu {
@@ -71,17 +130,38 @@ h1 {
     margin: 0 1% 20px;
 }
 
+.books {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
+.authors {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 .preview {
     display: inline-block;
     float: left;
     height: 80px;
     width: 80px;
     border-radius: 40px;
-    background-image: url("../img/book-rocket.png");
     background-position: top;
     background-size: cover;
-    opacity: 0.8;
     margin-right: 10px;
+}
+
+.preview.book {
+    background-image: url("../img/book-rocket.png");
+    opacity: 0.8;
+    
+}
+.preview.author {
+    background-image: url("../img/author3.png");
+    float: right;
 }
 
 .title {
@@ -91,6 +171,10 @@ h1 {
     font-size: 18px;
     text-transform: uppercase;
     color: #544F9A;
+}
+
+.right .title {
+    width: 100%;
 }
 
 .name {
@@ -103,7 +187,31 @@ h1 {
 
 .buttons {
     width: 70%;
+    outline: none;
+    margin-bottom: 10px;
 }
+
+.buttons.author {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+.buttons.author > .edit-btn {
+    width: 50%;
+}
+
+.buttons.author > form {
+    display: inline-block;
+    float: left;
+    width: 50%;
+}
+
+.buttons.author > form > .submit-btn {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
 .edit-btn,
 .submit-btn {
     display: inline-block;
@@ -117,4 +225,28 @@ h1 {
     border-bottom: 1px solid #544F9A;
     cursor: pointer;
     text-align: center;
+    outline: none;
+}
+
+.edit-btn:hover {
+    background: #544F9A;
+    color: #fff;
+}
+
+.submit-btn:hover {
+    background: #e7e7ff;
+}
+
+.submit-btn.create {
+    width: 50%;
+    height: 30px;
+    margin: 20px 25%;
+    color: #fff;
+    border: none;
+    /* border-radius: 15px; */
+    background: #5075e4;
+}
+
+.submit-btn.create:hover {
+    background: #5A85FF;
 }

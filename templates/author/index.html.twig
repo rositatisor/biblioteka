@@ -4,21 +4,34 @@
 
 {% block body %}
     <h1>Authors in Library</h1>
-    <a href="{{path('author_create')}}">Create new Author</a>
-    <p>List:</p>
-    <ul>
-        {% for author in authors %}
-            <li>{{author.name}} {{author.surname}} 
-            <a href="{{path('author_edit', {id: author.id})}}">Edit</a>
-            <form action="{{path('author_delete', {id:author.id})}}" method="POST">
-                <button type="submit">DELETE</button>
-            </form>
-
-            {% for book in author.books %}
-                {{book.title}} <br>
+    <div class="hero-bg"></div>
+    <div class="menu">
+        <a class="nav" href="{{path('book_index')}}">Book list</a>
+        <a class="nav" href="{{path('book_create')}}">New Book</a>
+        <a class="nav checked" href="{{path('author_index')}}">Author list</a>
+        <a class="nav" href="{{path('author_create')}}">New Author</a>
+    </div>
+    <div class="container author">
+        <ul class="author-list">
+            {% for author in authors %}
+                <div class="authors">
+                    <div class="left">
+                        <div class="preview author"></div>
+                    </div>
+                    <div class="right">
+                        <div class="title">{{author.name}} {{author.surname}}</div>
+                        {% for book in author.books %}
+                            <div class="books">{{book.title}}</div>
+                        {% endfor %}
+                        <div class="buttons author">
+                            <a class="edit-btn" href="{{path('author_edit', {id: author.id})}}">Edit</a>
+                            <form action="{{path('author_delete', {id:author.id})}}" method="POST">
+                                <button class="submit-btn" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-            </li>
-        {% endfor %}
-    </ul>
-
+        </ul>
+    </div>
 {% endblock %}

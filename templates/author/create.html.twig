@@ -3,10 +3,25 @@
 {% block title %}Create new Author!{% endblock %}
 
 {% block body %}
-    <h1>Create new Author✅</h1>
-    <form action="{{path('author_store')}}" method="POST">
-        Name: <input type="text" name="author_name">
-        Surname: <input type="text" name="author_surname">
-        <button type="submit">Add new Author</button>
-    </form>
+    <h1 class="create">Create new Author</h1>
+    <div class="hero-bg create"></div>
+    <div class="menu">
+        <a class="nav create" href="{{path('book_index')}}">Book list</a>
+        <a class="nav create" href="{{path('book_create')}}">New Book</a>
+        <a class="nav create" href="{{path('author_index')}}">Author list</a>
+        <a class="nav create checked" href="{{path('author_create')}}">New Author</a>
+    </div>
+    <div class="container create">
+        <form action="{{path('author_store')}}" method="POST">
+            <div class="new">
+                <p>Name:</p> 
+                <input type="text" name="author_name">
+            </div>
+            <div class="new">
+                <p>Surname:</p> 
+                <input type="text" name="author_surname">
+            </div>
+            <button class="submit-btn create" type="submit">Add new Author</button>
+        </form>
+    </div>
 {% endblock %}
