@@ -12,6 +12,19 @@
         <a class="nav" href="{{path('author_create')}}">New Author</a>
     </div>
     <div class="container author">
+        <div class="sort">List order by: 
+            <form action="{{path('author_index')}}" method="GET">
+                <select name="sort">
+                    <option value="default">Default</option>
+                    <option value="name_az" {% if sortBy == 'name_az' %} selected {% endif %}>Name A-Z</option>
+                    <option value="name_za" {% if sortBy == 'name_za' %} selected {% endif %}>Name Z-A</option>
+                    <option value="surname_az" {% if sortBy == 'surname_az' %} selected {% endif %}>Surname A-Z</option>
+                    <option value="surname_za" {% if sortBy == 'surname_za' %} selected {% endif %}>Surname Z-A</option>
+                </select>
+                <button type="submit">Sort</button>
+            </form>
+            <a href="{{path('author_index')}}">Clear sort</a>
+        </div>
         <ul class="author-list">
             {% for author in authors %}
                 <div class="authors">
