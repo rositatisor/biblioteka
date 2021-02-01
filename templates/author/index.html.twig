@@ -12,7 +12,8 @@
         <a class="nav" href="{{path('author_create')}}">New Author</a>
     </div>
     <div class="container author">
-        <div class="sort">List order by: 
+        <div class="sort">
+            <p>List order by:</p> 
             <form action="{{path('author_index')}}" method="GET">
                 <select name="sort">
                     <option value="default">Default</option>
