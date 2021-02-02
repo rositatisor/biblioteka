@@ -6,10 +6,12 @@
         <link href="{{asset('css/reset.css')}}" rel="stylesheet">
         <link href="{{asset('css/main.css')}}" rel="stylesheet">
         {% block stylesheets %}{% endblock %}
-
         {% block javascripts %}{% endblock %}
     </head>
     <body>
+        {% if errors is defined and errors|length > 0%}
+            {% include 'errors/validation.html.twig'%}
+        {% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>

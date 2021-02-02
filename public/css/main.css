@@ -2,6 +2,13 @@ body {
     background: #fff;
     position: relative;
 }
+
+.validation {
+    display: inline-block;
+    float: left;
+    width: 100%;
+}
+
 a {
     text-decoration: none;
 }

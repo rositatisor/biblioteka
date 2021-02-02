@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +28,7 @@ class BookController extends AbstractController
         $books = $this->getDoctrine()
             ->getRepository(Book::class);
             if ($r->query->get('author_id') !== null && $r->query->get('author_id') != 0) 
-                $books = $books->findBy(['author_id' => $r->query->get('author_id')]);
+                $books = $books->findBy(['author_id' => $r->query->get('author_id')], ['title' => 'asc']);
             elseif ($r->query->get('author_id') == 0) $books = $books->findAll();
             else $books = $books->findAll();
 
@@ -41,26 +42,28 @@ class BookController extends AbstractController
     /**
      * @Route("/book/create", name="book_create", methods={"GET"})
      */
-    public function create(): Response
+    public function create(request $r): Response
     {
         $authors = $this->getDoctrine()
             ->getRepository(Author::class)
-            ->findAll();
+            ->findBy([],['surname'=>'asc']);
 
         return $this->render('book/create.html.twig', [
-            'authors' => $authors
+            'authors' => $authors,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
 
     /**
      * @Route("/book/store", name="book_store", methods={"POST"})
      */
-    public function store(request $r): Response
+    public function store(request $r, ValidatorInterface $validator): Response
     {
+        
         $author = $this->getDoctrine()
-            ->getRepository(Author::class)
-            ->find($r->request->get('book_author_id'));
-
+        ->getRepository(Author::class)
+        ->find($r->request->get('book_author_id'));
+        
         $book = new Book;
         $book
             ->setTitle($r->request->get('book_title'))
@@ -68,6 +71,14 @@ class BookController extends AbstractController
             ->setPages($r->request->get('book_pages'))
             ->setAbout($r->request->get('book_about'))
             ->setAuthor($author);
+
+        $errors = $validator->validate($book);
+        if (count($errors) > 0) {
+            foreach ($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            return $this->redirectToRoute('book_create');
+        }
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);
@@ -87,7 +98,7 @@ class BookController extends AbstractController
 
         $authors = $this->getDoctrine()
             ->getRepository(Author::class)
-            ->findAll();
+            ->findBy([],['surname'=>'asc']);
 
         return $this->render('book/edit.html.twig', [
             'book' => $book,

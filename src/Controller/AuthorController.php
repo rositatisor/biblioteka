@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,20 +38,30 @@ class AuthorController extends AbstractController
     /**
      * @Route("/author/create", name="author_create", methods={"GET"})
      */
-    public function create(): Response
+    public function create(request $r): Response
     {
-        return $this->render('author/create.html.twig', []);
+        return $this->render('author/create.html.twig', [
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
+        ]);
     }
 
     /**
      * @Route("/author/store", name="author_store", methods={"POST"})
      */
-    public function store(request $r): Response
+    public function store(request $r, ValidatorInterface $validator): Response
     {
         $author = new Author;
         $author
             ->setName($r->request->get('author_name'))
             ->setSurname($r->request->get('author_surname'));
+
+        $errors = $validator->validate($author);
+        if (count($errors) > 0) {
+            foreach ($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            return $this->redirectToRoute('author_create');
+        }
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($author);
