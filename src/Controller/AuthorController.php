@@ -22,7 +22,7 @@ class AuthorController extends AbstractController
 
         $authors = $this->getDoctrine()
             ->getRepository(Author::class);
-            if ($r->query->get('sort') == 'name_az') $authors = $authors->findBy([], ['name' => 'asc']);
+            if ($r->query->get('sort') == 'name_az') $authors = $authors->findBy([], ['name' => 'asc', 'surname' => 'asc']);
             elseif ($r->query->get('sort') == 'name_za') $authors = $authors->findBy([], ['name' => 'desc']);
             elseif ($r->query->get('sort') == 'surname_az') $authors = $authors->findBy([], ['surname' => 'asc']);
             elseif ($r->query->get('sort') == 'surname_za') $authors = $authors->findBy([], ['surname' => 'desc']);
@@ -31,7 +31,8 @@ class AuthorController extends AbstractController
         return $this->render('author/index.html.twig', [
             'controller_name' => 'AuthorController',
             'authors' => $authors,
-            'sortBy' => $r->query->get('sort') ?? 'default'
+            'sortBy' => $r->query->get('sort') ?? 'default',
+            'success' => $r->getSession()->getFlashBag()->get('success', [])
         ]);
     }
 
@@ -40,8 +41,13 @@ class AuthorController extends AbstractController
      */
     public function create(request $r): Response
     {
+        $author_name = $r->getSession()->getFlashBag()->get('author_name', []);
+        $author_surname = $r->getSession()->getFlashBag()->get('author_surname', []);
+
         return $this->render('author/create.html.twig', [
-            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
+            'errors' => $r->getSession()->getFlashBag()->get('errors', []),
+            'author_name' => $author_name[0] ?? '',
+            'author_surname' => $author_surname[0] ?? ''
         ]);
     }
 
@@ -60,6 +66,8 @@ class AuthorController extends AbstractController
             foreach ($errors as $error) {
                 $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
             }
+            $r->getSession()->getFlashBag()->add('author_name', $r->request->get('author_name'));
+            $r->getSession()->getFlashBag()->add('author_surname', $r->request->get('author_surname'));
             return $this->redirectToRoute('author_create');
         }
 
@@ -67,27 +75,36 @@ class AuthorController extends AbstractController
         $entityManager->persist($author);
         $entityManager->flush();
 
+        $r->getSession()->getFlashBag()->add('success', 'Author was created.');
+
         return $this->redirectToRoute('author_index');
     }
 
     /**
      * @Route("/author/edit/{id}", name="author_edit", methods={"GET"})
      */
-    public function edit(int $id): Response
+    public function edit(int $id, request $r): Response
     {
         $author = $this->getDoctrine()
             ->getRepository(Author::class)
             ->find($id);
 
+        $author_name = $r->getSession()->getFlashBag()->get('author_name', []);
+        $author_surname = $r->getSession()->getFlashBag()->get('author_surname', []);
+
         return $this->render('author/edit.html.twig', [
-            'author' => $author
+            'author' => $author,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', []),
+            'success' => $r->getSession()->getFlashBag()->get('success', []),
+            'author_name' => $author_name[0] ?? '',
+            'author_surname' => $author_surname[0] ?? ''
         ]);
     }
 
     /**
      * @Route("/author/update/{id}", name="author_update", methods={"POST"})
      */
-    public function update(request $r, $id): Response
+    public function update(request $r, $id, ValidatorInterface $validator): Response
     {
         $author = $this->getDoctrine()
             ->getRepository(Author::class)
@@ -97,9 +114,21 @@ class AuthorController extends AbstractController
             ->setName($r->request->get('author_name'))
             ->setSurname($r->request->get('author_surname'));
 
+        $errors = $validator->validate($author);
+        if (count($errors) > 0) {
+            foreach ($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            $r->getSession()->getFlashBag()->add('author_name', $r->request->get('author_name'));
+            $r->getSession()->getFlashBag()->add('author_surname', $r->request->get('author_surname'));
+            return $this->redirectToRoute('author_edit', ['id'=>$author->getId()]);
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($author);
         $entityManager->flush();
+
+        $r->getSession()->getFlashBag()->add('success', 'Author was updated.');
 
         return $this->redirectToRoute('author_index');
     }

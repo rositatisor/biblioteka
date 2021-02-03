@@ -15,11 +15,11 @@
         <form action="{{path('author_store')}}" method="POST">
             <div class="new">
                 <p>Name:</p> 
-                <input type="text" name="author_name">
+                <input type="text" name="author_name" value="{{ author_name }}">
             </div>
             <div class="new">
                 <p>Surname:</p> 
-                <input type="text" name="author_surname">
+                <input type="text" name="author_surname" value="{{ author_surname }}">
             </div>
             <button class="submit-btn create" type="submit">Add new Author</button>
         </form>

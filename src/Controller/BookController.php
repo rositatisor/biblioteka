@@ -35,7 +35,8 @@ class BookController extends AbstractController
         return $this->render('book/index.html.twig', [
             'books' => $books,
             'authors' => $authors,
-            'authorId' => $r->query->get('author_id') ?? 0
+            'authorId' => $r->query->get('author_id') ?? 0,
+            'success' => $r->getSession()->getFlashBag()->get('success', [])
         ]);
     }
 
@@ -59,7 +60,6 @@ class BookController extends AbstractController
      */
     public function store(request $r, ValidatorInterface $validator): Response
     {
-        
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('book_author_id'));
@@ -83,6 +83,8 @@ class BookController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);
         $entityManager->flush();
+
+        $r->getSession()->getFlashBag()->add('success', 'Book was added.');
 
         return $this->redirectToRoute('book_index');
     }
