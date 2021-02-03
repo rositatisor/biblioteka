@@ -8,5 +8,6 @@
         Name: <input type="text" name="author_name" value="{{author.name}}">
         Surname: <input type="text" name="author_surname" value="{{author.surname}}">
         <button type="submit">Edit Author</button>
+        <input type="hidden" name="token" value="{{csrf_token('')}}"/>
     </form>
 {% endblock %}

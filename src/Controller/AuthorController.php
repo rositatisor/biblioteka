@@ -56,12 +56,16 @@ class AuthorController extends AbstractController
      */
     public function store(request $r, ValidatorInterface $validator): Response
     {
+        $submittedToken = $r->request->get('token');
+        if (!$this->isCsrfTokenValid('', $submittedToken)) $r->getSession()->getFlashBag()->add('errors', 'Invalid token.');
+
         $author = new Author;
         $author
             ->setName($r->request->get('author_name'))
             ->setSurname($r->request->get('author_surname'));
 
         $errors = $validator->validate($author);
+
         if (count($errors) > 0) {
             foreach ($errors as $error) {
                 $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
@@ -70,6 +74,7 @@ class AuthorController extends AbstractController
             $r->getSession()->getFlashBag()->add('author_surname', $r->request->get('author_surname'));
             return $this->redirectToRoute('author_create');
         }
+        if (!$this->isCsrfTokenValid('', $submittedToken)) return $this->redirectToRoute('author_create');
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($author);
@@ -106,6 +111,9 @@ class AuthorController extends AbstractController
      */
     public function update(request $r, $id, ValidatorInterface $validator): Response
     {
+        $submittedToken = $r->request->get('token');
+        if (!$this->isCsrfTokenValid('', $submittedToken)) $r->getSession()->getFlashBag()->add('errors', 'Invalid token.');
+
         $author = $this->getDoctrine()
             ->getRepository(Author::class)
             ->find($id);
@@ -123,6 +131,8 @@ class AuthorController extends AbstractController
             $r->getSession()->getFlashBag()->add('author_surname', $r->request->get('author_surname'));
             return $this->redirectToRoute('author_edit', ['id'=>$author->getId()]);
         }
+
+        if (!$this->isCsrfTokenValid('', $submittedToken)) return $this->redirectToRoute('author_edit', ['id'=>$author->getId()]);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($author);

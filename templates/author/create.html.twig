@@ -22,6 +22,7 @@
                 <input type="text" name="author_surname" value="{{ author_surname }}">
             </div>
             <button class="submit-btn create" type="submit">Add new Author</button>
+            <input type="hidden" name="token" value="{{csrf_token('')}}"/>
         </form>
     </div>
 {% endblock %}

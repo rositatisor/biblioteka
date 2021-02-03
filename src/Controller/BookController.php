@@ -23,7 +23,7 @@ class BookController extends AbstractController
 
         $authors = $this->getDoctrine()
             ->getRepository(Author::class)
-            ->findAll();
+            ->findBy([],['surname'=>'asc']);
 
         $books = $this->getDoctrine()
             ->getRepository(Book::class);
@@ -60,6 +60,9 @@ class BookController extends AbstractController
      */
     public function store(request $r, ValidatorInterface $validator): Response
     {
+        $submittedToken = $r->request->get('token');
+        if (!$this->isCsrfTokenValid('', $submittedToken)) $r->getSession()->getFlashBag()->add('errors', 'Invalid token.');
+
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('book_author_id'));
@@ -81,7 +84,7 @@ class BookController extends AbstractController
             }
             return $this->redirectToRoute('book_create');
         }
-        
+        if (!$this->isCsrfTokenValid('', $submittedToken)) return $this->redirectToRoute('book_create');
         if($author == null) return $this->redirectToRoute('book_create');
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -96,7 +99,7 @@ class BookController extends AbstractController
     /**
      * @Route("/book/edit/{id}", name="book_edit", methods={"GET"})
      */
-    public function edit(int $id): Response
+    public function edit(int $id, request $r): Response
     {
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
@@ -108,15 +111,20 @@ class BookController extends AbstractController
 
         return $this->render('book/edit.html.twig', [
             'book' => $book,
-            'authors' => $authors
+            'authors' => $authors,
+            'errors' => $r->getSession()->getFlashBag()->get('errors', []),
+            'success' => $r->getSession()->getFlashBag()->get('success', [])
         ]);
     }
 
     /**
      * @Route("/book/update/{id}", name="book_update", methods={"POST"})
      */
-    public function update(request $r, $id): Response
+    public function update(request $r, $id, ValidatorInterface $validator): Response
     {
+        $submittedToken = $r->request->get('token');
+        if (!$this->isCsrfTokenValid('', $submittedToken)) $r->getSession()->getFlashBag()->add('errors', 'Invalid token.');
+
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
             ->find($id);
@@ -131,10 +139,21 @@ class BookController extends AbstractController
             ->setPages($r->request->get('book_pages'))
             ->setAbout($r->request->get('book_about'))
             ->setAuthor($author);
+            
+        $errors = $validator->validate($book);
+        if (count($errors) > 0) {
+            foreach ($errors as $error) {
+                $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
+            }
+            return $this->redirectToRoute('book_edit', ['id'=>$book->getId()]);
+        }
+        if (!$this->isCsrfTokenValid('', $submittedToken)) return $this->redirectToRoute('book_edit', ['id'=>$book->getId()]);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);
         $entityManager->flush();
+
+        $r->getSession()->getFlashBag()->add('success', 'Book was updated.');
 
         return $this->redirectToRoute('book_index');
     }
