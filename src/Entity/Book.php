@@ -38,7 +38,7 @@ class Book
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank(message="Pages should not be blank.")
+     * @Assert\Positive(message="Pages should be a positive integer.")
      */
     private $pages;
 

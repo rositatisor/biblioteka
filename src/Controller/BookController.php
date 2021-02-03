@@ -63,12 +63,14 @@ class BookController extends AbstractController
         $author = $this->getDoctrine()
         ->getRepository(Author::class)
         ->find($r->request->get('book_author_id'));
+
+        if($author == null) $r->getSession()->getFlashBag()->add('errors', 'Author must be selected.');
         
         $book = new Book;
         $book
             ->setTitle($r->request->get('book_title'))
             ->setIsbn($r->request->get('book_isbn'))
-            ->setPages($r->request->get('book_pages'))
+            ->setPages((int)$r->request->get('book_pages'))
             ->setAbout($r->request->get('book_about'))
             ->setAuthor($author);
 
@@ -79,6 +81,8 @@ class BookController extends AbstractController
             }
             return $this->redirectToRoute('book_create');
         }
+        
+        if($author == null) return $this->redirectToRoute('book_create');
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($book);

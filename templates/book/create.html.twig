@@ -30,6 +30,7 @@
             <div class="new">
                 <p>AUTHOR:</p>
                 <select name="book_author_id">
+                        <option value="0">Select author</option>
                     {% for author in authors %}
                         <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
                     {% endfor %}
