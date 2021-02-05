@@ -17,6 +17,8 @@ class BookController extends AbstractController
      */
     public function index(request $r): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         // $books = $this->getDoctrine()
         //     ->getRepository(Book::class)
         //     ->findAll();

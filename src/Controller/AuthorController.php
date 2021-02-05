@@ -16,6 +16,8 @@ class AuthorController extends AbstractController
      */
     public function index(request $r): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
         // $authors = $this->getDoctrine()
         //     ->getRepository(Author::class)
         //     ->findAll();
