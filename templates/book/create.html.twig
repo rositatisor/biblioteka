@@ -15,24 +15,27 @@
         <form action="{{path('book_store')}}" method="POST">
             <div class="new">
                 <p>TITLE:</p> 
-                <input type="text" name="book_title">
+                <input type="text" name="book_title" value="{{book_title}}">
             </div>
             <div class="new">
                 <p>ISBN:</p>
-                <input type="text" name="book_isbn">
+                <input type="text" name="book_isbn" value="{{book_isbn}}">
             </div>
             <div class="new">
                 <p>PAGES:</p>
-                <input type="text" name="book_pages"></div>
+                <input type="text" name="book_pages" value="{{book_pages}}"></div>
             <div class="new">
                 <p>ABOUT:</p> 
-                <textarea name="book_about" id="summernote"></textarea></div>
+                <textarea name="book_about" id="summernote">{{book_about}}</textarea></div>
             <div class="new">
                 <p>AUTHOR:</p>
                 <select name="book_author_id">
                         <option value="0">Select author</option>
                     {% for author in authors %}
-                        <option value="{{author.id}}">{{author.name}} {{author.surname}}</option>
+                        <option value="{{author.id}}" 
+                        {% if author.id == book_author_id %} selected {% endif %}>
+                            {{author.name}} {{author.surname}}
+                        </option>
                     {% endfor %}
                 </select>
             </div>

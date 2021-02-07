@@ -51,8 +51,19 @@ class BookController extends AbstractController
             ->getRepository(Author::class)
             ->findBy([],['surname'=>'asc']);
 
+        $book_title = $r->getSession()->getFlashBag()->get('book_title', []);
+        $book_isbn = $r->getSession()->getFlashBag()->get('book_isbn', []);
+        $book_pages = $r->getSession()->getFlashBag()->get('book_pages', []);
+        $book_about = $r->getSession()->getFlashBag()->get('book_about', []);
+        $book_author_id = $r->getSession()->getFlashBag()->get('book_author_id', []);
+
         return $this->render('book/create.html.twig', [
             'authors' => $authors,
+            'book_title' => $book_title[0] ?? '',
+            'book_isbn' => $book_isbn[0] ?? '',
+            'book_pages' => $book_pages[0] ?? '',
+            'book_about' => $book_about[0] ?? '',
+            'book_author_id' => $book_author_id[0] ?? '',
             'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
@@ -66,8 +77,8 @@ class BookController extends AbstractController
         if (!$this->isCsrfTokenValid('', $submittedToken)) $r->getSession()->getFlashBag()->add('errors', 'Invalid token.');
 
         $author = $this->getDoctrine()
-        ->getRepository(Author::class)
-        ->find($r->request->get('book_author_id'));
+            ->getRepository(Author::class)
+            ->find($r->request->get('book_author_id'));
 
         if($author == null) $r->getSession()->getFlashBag()->add('errors', 'Author must be selected.');
         
@@ -80,10 +91,15 @@ class BookController extends AbstractController
             ->setAuthor($author);
 
         $errors = $validator->validate($book);
-        if (count($errors) > 0) {
+        if (count($errors) > 0 or $author == null) {
             foreach ($errors as $error) {
                 $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
             }
+            $r->getSession()->getFlashBag()->add('book_title', $r->request->get('book_title'));
+            $r->getSession()->getFlashBag()->add('book_isbn', $r->request->get('book_isbn'));
+            $r->getSession()->getFlashBag()->add('book_pages', $r->request->get('book_pages'));
+            $r->getSession()->getFlashBag()->add('book_about', $r->request->get('book_about'));
+            $r->getSession()->getFlashBag()->add('book_author_id', $r->request->get('book_author_id'));
             return $this->redirectToRoute('book_create');
         }
         if (!$this->isCsrfTokenValid('', $submittedToken)) return $this->redirectToRoute('book_create');
