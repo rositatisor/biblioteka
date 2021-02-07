@@ -29,6 +29,15 @@ class Author
      *      minMessage = "Name must be at least {{ limit }} characters long.",
      *      maxMessage = "Name cannot be longer than {{ limit }} characters."
      * )
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Your name cannot contain a number"
+     * )
+     * * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "^[a-zA-Z]+$"
+     * )
      */
     private $name;
 
@@ -40,6 +49,15 @@ class Author
      *      max = 64,
      *      minMessage = "Surname must be at least {{ limit }} characters long.",
      *      maxMessage = "Surname cannot be longer than {{ limit }} characters."
+     * )
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Your surname cannot contain a number"
+     * )
+     * * @Assert\Regex(
+     *     pattern     = "/^[a-z]+$/i",
+     *     htmlPattern = "^[a-zA-Z]+$"
      * )
      */
     private $surname;
