@@ -254,6 +254,10 @@ ul {
 
 form {
     display: inline-block;
+}
+
+.filter form,
+.sort form {
     height: 22px;
 }
 
@@ -277,7 +281,6 @@ form {
     height: 22px;
     line-height: 18px;
     font-size: 14px;
-    /* background: #F4F4F4; */
     color: #3A3B64;
     border: none;
     border-top: 1px solid #544F9A;
@@ -302,6 +305,8 @@ form {
 
 .edit-btn:hover {
     background: #544F9A;
+    color: #fff;
+    text-decoration: none;
 }
 
 .submit-btn:hover {
@@ -319,7 +324,6 @@ form {
     margin: 10px 25%;
     color: #fff;
     border: none;
-    /* border-radius: 15px; */
     background: #3A3B64;
 }
 
