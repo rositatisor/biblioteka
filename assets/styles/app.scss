@@ -1,4 +1,314 @@
 @import "~bootstrap/scss/bootstrap";
+
 body {
+    background: #fff;
+    position: relative;
+}
+
+.validation {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.hero-bg {
+    height: 200px;
+    background-image: url("http://localhost/testas/assets/img/hero.gif");
+    background-color: #F7BDD6;
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 40%;
+}
+
+.hero-bg.create {
+    // background-image: url("http://localhost/testas/assets/img/hero-create2.gif");
+    height: 0px;
+    background-image: none;
+    // background-color: #5A85FF;
+    // background-size: 25%;
+}
+
+.container {
     display: inline-block;
+    position: relative;
+    width: 80vw;
+    margin: 0vh 9vw;
+}
+
+.container.author {
+    width: 40vw;
+    margin: 0vh 29vw;
+}
+
+.container.author .left {
+    display: block;
+    float: left;
+    width: 30%;
+}
+
+.container.author .right {
+    display: block;
+    float: left;
+    width: 70%;
+}
+
+.container.create {
+    width: 30vw;
+    margin: 0vh 34vw;
+}
+
+ul {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.new {
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+.new label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    line-height: 30px;
+    margin-bottom: 0;
+}
+
+.new > input,
+.new > textarea,
+.new > select {
+    display: block;
+    float: right;
+    width: 72%;
+}
+
+h1 {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    color: #3A3B64;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin: 0 0 20px;
+    border-top: 1px solid #3A3B64;
+    border-bottom: 1px solid #3A3B64;
+}
+
+.nav {
+    display: inline-block;
+    width: 25%;
+    min-width: 115px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 15px;
+    color: #3A3B64;
+    text-align: center;
+    text-decoration: none;
+}
+
+.nav:last-of-type {
+    margin-right: 0;
+}
+
+.nav:hover,
+.nav.checked {
+    background: #544F9A;
+    color: #fff;
+}
+
+.book {
+    display: block;
+    float: left;
+    width: 25%;
+    height: 250px;
+    margin: 0 0 20px;
+}
+
+.books {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+ul {
+    padding-inline-start: 0;
+}
+
+.authors {
+    display: block;
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.preview {
+    display: block;
+    float: left;
+    height: 80px;
+    width: 80px;
+    border-radius: 40px;
+    background-position: top;
+    background-size: cover;
+}
+
+.preview.book {
+    background-image: url("http://localhost/testas/assets/img/book-rocket.png");
+    opacity: 0.8;
+    
+}
+.preview.author {
+    background-image: url("http://localhost/testas/assets/img/author3.png");
+    float: right;
+}
+
+.title {
+    display: block;
+    float: left;
+    width: 90%;
+    // height: 55px;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #544F9A;
+}
+
+.right .title {
+    width: 100%;
+}
+
+.name {
+    display: block;
+    float: left;
+    width: 90%;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.buttons {
+    display: inline-block;
+    width: 90%;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.buttons.author {
+    display: block;
+    float: left;
+    width: 100%;
+}
+.buttons.author > .edit-btn {
+    width: 50%;
+}
+
+form {
+    display: inline-block;
+}
+.buttons.author > form {
+    display: block;
+    float: left;
+    width: 50%;
+}
+
+.buttons.author > form > .submit-btn {
+    display: block;
+    float: left;
+    width: 100%;
+}
+
+.edit-btn,
+.submit-btn {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 22px;
+    line-height: 18px;
+    font-size: 14px;
+    /* background: #F4F4F4; */
+    color: #3A3B64;
+    border: none;
+    border-top: 1px solid #544F9A;
+    border-bottom: 1px solid #544F9A;
+    cursor: pointer;
+    text-align: center;
+    outline: none;
+}
+
+.edit-btn:hover {
+    background: #544F9A;
+    color: #fff;
+}
+
+.submit-btn:hover {
+    background: #e7e7ff;
+}
+
+.submit-btn.create {
+    width: 50%;
+    height: 30px;
+    margin: 10px 25%;
+    color: #fff;
+    border: none;
+    /* border-radius: 15px; */
+    background: #3A3B64;
+}
+
+.submit-btn.create:hover {
+    background: #544F9A;
+}
+
+.form-check-input.custom {
+    display: block;
+    float: left;
+    position: unset;
+}
+
+@media (max-width: 1100px) {
+    .new label {
+       text-align: left; 
+       width: 100%;
+    }
+    .new input {
+        width: 100%;
+    }
+}
+@media (max-width: 1000px) {
+    .book {
+        width: 33%;
+    }
+    .preview {
+        width: 80px;
+    }
+}
+
+@media (max-width: 850px) {
+    .book {
+        width: 50%;
+    }
+    .preview {
+        width: 80px;
+    }
+}
+
+@media (max-width: 650px) {
+    .book {
+        width: 100%;
+    }
+    .preview {
+        width: 80px;
+    }
 }

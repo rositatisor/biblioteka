@@ -4,13 +4,6 @@
 
 {% block body %}
     <h1 class="create">Create new Book</h1>
-    <div class="hero-bg create"></div>
-    <div class="menu">
-        <a class="nav create" href="{{path('book_index')}}">Book list</a>
-        <a class="nav create checked" href="{{path('book_create')}}">New Book</a>
-        <a class="nav create" href="{{path('author_index')}}">Author list</a>
-        <a class="nav create" href="{{path('author_create')}}">New Author</a>
-    </div>
     <div class="container create">
         <form action="{{path('book_store')}}" method="POST">
             <div class="new">

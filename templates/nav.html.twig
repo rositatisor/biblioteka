@@ -1,0 +1,8 @@
+<div class="hero-bg"></div>
+{% set route_name = app.request.attributes.get('_route') %}
+<div class="menu">
+    <a class="nav {% if route_name == 'book_index' %} checked {% endif %}" href="{{path('book_index')}}">Book list</a>
+    <a class="nav {% if route_name == 'book_create' %} checked {% endif %}" href="{{path('book_create')}}">New Book</a>
+    <a class="nav {% if route_name == 'author_index' %} checked {% endif %}" href="{{path('author_index')}}">Author list</a>
+    <a class="nav {% if route_name == 'author_create' %} checked {% endif %}" href="{{path('author_create')}}">New Author</a>
+</div>
