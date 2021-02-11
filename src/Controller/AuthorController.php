@@ -43,6 +43,8 @@ class AuthorController extends AbstractController
      */
     public function create(request $r): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $author_name = $r->getSession()->getFlashBag()->get('author_name', []);
         $author_surname = $r->getSession()->getFlashBag()->get('author_surname', []);
 
@@ -92,6 +94,8 @@ class AuthorController extends AbstractController
      */
     public function edit(int $id, request $r): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
         $author = $this->getDoctrine()
             ->getRepository(Author::class)
             ->find($id);

@@ -47,6 +47,8 @@ class BookController extends AbstractController
      */
     public function create(request $r): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $authors = $this->getDoctrine()
             ->getRepository(Author::class)
             ->findBy([],['surname'=>'asc']);
@@ -119,6 +121,8 @@ class BookController extends AbstractController
      */
     public function edit(int $id, request $r): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
             ->find($id);
