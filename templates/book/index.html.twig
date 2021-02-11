@@ -18,10 +18,10 @@
             </form>
             <a href="{{path('book_index')}}">Clear filter</a>
         </div>
-        <ul class="book-list">
+        <ul class="item-list">
             {% for book in books %}
-                <div class="book">
-                    <div class="preview book"></div>
+                <div class="item">
+                    <div class="preview item"></div>
                     <p class="title">{{book.title}}</p>
                     <p class="name">{{book.author.name}} {{book.author.surname}}</p>
                     <div class="buttons">

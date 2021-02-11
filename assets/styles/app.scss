@@ -47,18 +47,18 @@ a:hover {
     margin: 0vh 9vw;
 }
 
-.container.author {
+.container.item {
     width: 40vw;
     margin: 0vh 29vw;
 }
 
-.container.author .left {
+.container.item .left {
     display: block;
     float: left;
     width: 30%;
 }
 
-.container.author .right {
+.container.item .right {
     display: block;
     float: left;
     width: 70%;
@@ -169,7 +169,7 @@ h1 {
     color: #fff;
 }
 
-.book {
+.item {
     display: block;
     float: left;
     width: 25%;
@@ -177,7 +177,7 @@ h1 {
     margin: 0 0 20px;
 }
 
-.books {
+.list {
     display: block;
     float: left;
     width: 100%;
@@ -187,7 +187,7 @@ ul {
     padding-inline-start: 0;
 }
 
-.authors {
+.items {
     display: block;
     float: left;
     width: 100%;
@@ -204,12 +204,12 @@ ul {
     background-size: cover;
 }
 
-.preview.book {
+.preview.item {
     background-image: url("http://localhost/biblioteka/assets/img/book-rocket.png");
     opacity: 0.8;
     
 }
-.preview.author {
+.preview.person {
     background-image: url("http://localhost/biblioteka/assets/img/author3.png");
     float: right;
 }
@@ -243,12 +243,12 @@ ul {
     margin-bottom: 10px;
 }
 
-.buttons.author {
+.buttons.wide {
     display: block;
     float: left;
     width: 100%;
 }
-.buttons.author > .edit-btn {
+.buttons.wide > .edit-btn {
     width: 50%;
 }
 
@@ -261,13 +261,13 @@ form {
     height: 22px;
 }
 
-.buttons.author > form {
+.buttons.wide > form {
     display: block;
     float: left;
     width: 50%;
 }
 
-.buttons.author > form > .submit-btn {
+.buttons.wide > form > .submit-btn {
     display: block;
     float: left;
     width: 100%;
@@ -355,7 +355,7 @@ form {
     .hero-bg {
         background-size: 60%;
     }
-    .book {
+    .item {
         width: 33%;
     }
     .preview {
@@ -368,7 +368,7 @@ form {
         background-size: 80%;
     }
 
-    .book {
+    .item {
         width: 50%;
     }
     .preview {
@@ -384,7 +384,7 @@ form {
     .hero-bg {
         background-size: 90%;
     }
-    .book {
+    .item {
         width: 100%;
     }
     .preview {

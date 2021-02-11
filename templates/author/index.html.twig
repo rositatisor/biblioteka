@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Authors in Library</h1>
-    <div class="container author">
+    <div class="container item">
         <div class="sort">
             <p>List order by:</p> 
             <form action="{{path('author_index')}}" method="GET">
@@ -19,18 +19,18 @@
             </form>
             <a href="{{path('author_index')}}">Clear sort</a>
         </div>
-        <ul class="author-list">
+        <ul class="item-list">
             {% for author in authors %}
-                <div class="authors">
+                <div class="items">
                     <div class="left">
-                        <div class="preview author"></div>
+                        <div class="preview person"></div>
                     </div>
                     <div class="right">
                         <div class="title">{{author.name}} {{author.surname}}</div>
                         {% for book in author.books %}
-                            <div class="books">{{book.title}}</div>
+                            <div class="list">{{book.title}}</div>
                         {% endfor %}
-                        <div class="buttons author">
+                        <div class="buttons wide">
                             <a class="edit-btn" href="{{path('author_edit', {id: author.id})}}">Edit</a>
                             <form action="{{path('author_delete', {id:author.id})}}" method="POST">
                                 <button class="submit-btn" type="submit">Delete</button>
