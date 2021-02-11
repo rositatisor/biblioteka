@@ -15,7 +15,7 @@
                     <option value="surname_az" {% if sortBy == 'surname_az' %} selected {% endif %}>Surname A-Z</option>
                     <option value="surname_za" {% if sortBy == 'surname_za' %} selected {% endif %}>Surname Z-A</option>
                 </select>
-                <button type="submit">Sort</button>
+                <button class="sort submit-btn" type="submit">Sort</button>
             </form>
             <a href="{{path('author_index')}}">Clear sort</a>
         </div>

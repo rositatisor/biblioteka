@@ -11,13 +11,23 @@ body {
     width: 100%;
 }
 
-a {
+.filter a,
+.sort a {
+    display: inline-block;
+    font-size: 14px;
+    height: 22px;
+    line-height: 32px;
     text-decoration: none;
+    color: #544F9A;
+}
+
+a:hover {
+    color: #544F9A;
 }
 
 .hero-bg {
     height: 200px;
-    background-image: url("http://localhost/testas/assets/img/hero.gif");
+    background-image: url("http://localhost/biblioteka/assets/img/hero.gif");
     background-color: #F7BDD6;
     background-attachment: fixed;
     background-position: top;
@@ -26,11 +36,8 @@ a {
 }
 
 .hero-bg.create {
-    // background-image: url("http://localhost/testas/assets/img/hero-create2.gif");
     height: 0px;
     background-image: none;
-    // background-color: #5A85FF;
-    // background-size: 25%;
 }
 
 .container {
@@ -62,6 +69,26 @@ a {
     margin: 0vh 34vw;
 }
 
+.filter,
+.sort {
+    display: inline-block;
+    width: 100%;
+    height: 27px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.filter p,
+.sort p {
+    display: inline-block;
+    width: 100px;
+    height: 22px;
+    font-size: 14px;
+    line-height: 32px;
+    margin-bottom: unset;
+    color: #6c757d;
+}
+
 ul {
     display: block;
     float: left;
@@ -88,6 +115,16 @@ ul {
     display: block;
     float: right;
     width: 72%;
+}
+
+.filter select,
+.sort select {
+    display: block;
+    float: left;
+    height: 22px;
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 5px;
 }
 
 h1 {
@@ -168,12 +205,12 @@ ul {
 }
 
 .preview.book {
-    background-image: url("http://localhost/testas/assets/img/book-rocket.png");
+    background-image: url("http://localhost/biblioteka/assets/img/book-rocket.png");
     opacity: 0.8;
     
 }
 .preview.author {
-    background-image: url("http://localhost/testas/assets/img/author3.png");
+    background-image: url("http://localhost/biblioteka/assets/img/author3.png");
     float: right;
 }
 
@@ -217,7 +254,9 @@ ul {
 
 form {
     display: inline-block;
+    height: 22px;
 }
+
 .buttons.author > form {
     display: block;
     float: left;
@@ -248,13 +287,30 @@ form {
     outline: none;
 }
 
+.filter.submit-btn,
+.sort.submit-btn {
+    display: block;
+    float: right;
+    height: 22px;
+    margin-bottom: unset;
+    border: none;
+    margin-left: 5px;
+    padding: unset;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
 .edit-btn:hover {
     background: #544F9A;
-    color: #fff;
 }
 
 .submit-btn:hover {
     background: #e7e7ff;
+}
+
+.filter.submit-btn:hover,
+.sort.submit-btn:hover {
+    background: #dee2e6;
 }
 
 .submit-btn.create {
@@ -278,15 +334,23 @@ form {
 }
 
 @media (max-width: 1100px) {
+    .hero-bg {
+        background-size: 50%;
+    }
     .new label {
        text-align: left; 
        width: 100%;
     }
-    .new input {
+    .new input,
+    .new > select {
         width: 100%;
     }
 }
+
 @media (max-width: 1000px) {
+    .hero-bg {
+        background-size: 60%;
+    }
     .book {
         width: 33%;
     }
@@ -296,19 +360,44 @@ form {
 }
 
 @media (max-width: 850px) {
+    .hero-bg {
+        background-size: 80%;
+    }
+
     .book {
         width: 50%;
     }
     .preview {
         width: 80px;
     }
+    .container.create {
+        width: 50vw;
+        margin: 0vh 24vw;
+    }
 }
 
 @media (max-width: 650px) {
+    .hero-bg {
+        background-size: 90%;
+    }
     .book {
         width: 100%;
     }
     .preview {
         width: 80px;
+    }
+    .container.create {
+        width: 70vw;
+        margin: 0vh 14vw;
+    }
+}
+
+@media (max-width: 550px) {
+    .hero-bg {
+        background-size: 110%;
+    }
+    .container.create {
+        width: 90vw;
+        margin: 0vh 4vw;
     }
 }

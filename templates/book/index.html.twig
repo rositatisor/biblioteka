@@ -14,7 +14,7 @@
                         <option value="{{author.id}}" {% if authorId == author.id %} selected {% endif %}>{{author.name}} {{author.surname}}</option>
                     {% endfor %}
                 </select>
-                <button type="submit">Filter</button>
+                <button class="filter submit-btn" type="submit">Filter</button>
             </form>
             <a href="{{path('book_index')}}">Clear filter</a>
         </div>

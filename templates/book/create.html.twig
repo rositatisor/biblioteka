@@ -7,23 +7,23 @@
     <div class="container create">
         <form action="{{path('book_store')}}" method="POST">
             <div class="new">
-                <p>TITLE:</p> 
-                <input type="text" name="book_title" value="{{book_title}}">
+                <label for="book_title">TITLE:</label> 
+                <input type="text" name="book_title" value="{{book_title}}" id="book_title">
             </div>
             <div class="new">
-                <p>ISBN:</p>
-                <input type="text" name="book_isbn" value="{{book_isbn}}">
+                <label for="book_isbn">ISBN:</label>
+                <input type="text" name="book_isbn" value="{{book_isbn}}" id="book_isbn">
             </div>
             <div class="new">
-                <p>PAGES:</p>
-                <input type="text" name="book_pages" value="{{book_pages}}"></div>
+                <label for="book_pages">PAGES:</label>
+                <input type="text" name="book_pages" value="{{book_pages}}" id="book_pages"></div>
             <div class="new">
-                <p>ABOUT:</p> 
+                <label for="summernote">ABOUT:</label> 
                 <textarea name="book_about" id="summernote">{{book_about}}</textarea>
             </div>
             <div class="new">
-                <p>AUTHOR:</p>
-                <select name="book_author_id">
+                <label for="book_author">AUTHOR:</label>
+                <select name="book_author_id" id="book_author">
                         <option value="0">Select author</option>
                     {% for author in authors %}
                         <option value="{{author.id}}" 
