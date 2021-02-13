@@ -111,7 +111,7 @@ class BookController extends AbstractController
         $entityManager->persist($book);
         $entityManager->flush();
 
-        $r->getSession()->getFlashBag()->add('success', 'Book was added.');
+        $r->getSession()->getFlashBag()->add('success', 'Book '.$book->getTitle().' was added.');
 
         return $this->redirectToRoute('book_index');
     }
@@ -175,7 +175,7 @@ class BookController extends AbstractController
         $entityManager->persist($book);
         $entityManager->flush();
 
-        $r->getSession()->getFlashBag()->add('success', 'Book was updated.');
+        $r->getSession()->getFlashBag()->add('success', 'Book '.$book->getTitle().' was updated.');
 
         return $this->redirectToRoute('book_index');
     }
@@ -183,7 +183,7 @@ class BookController extends AbstractController
     /**
      * @Route("/book/delete/{id}", name="book_delete", methods={"POST"})
      */
-    public function delete($id): Response
+    public function delete(request $r, $id): Response
     {
         $book = $this->getDoctrine()
             ->getRepository(Book::class)
@@ -192,6 +192,8 @@ class BookController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($book);
         $entityManager->flush();
+
+        $r->getSession()->getFlashBag()->add('success', 'Book '.$book->getTitle().' was deleted.');
 
         return $this->redirectToRoute('book_index');
     }

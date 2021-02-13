@@ -34,7 +34,8 @@ class AuthorController extends AbstractController
             'controller_name' => 'AuthorController',
             'authors' => $authors,
             'sortBy' => $r->query->get('sort') ?? 'default',
-            'success' => $r->getSession()->getFlashBag()->get('success', [])
+            'success' => $r->getSession()->getFlashBag()->get('success', []),
+            'errors' => $r->getSession()->getFlashBag()->get('errors', [])
         ]);
     }
 
@@ -69,7 +70,6 @@ class AuthorController extends AbstractController
             ->setSurname($r->request->get('author_surname'));
 
         $errors = $validator->validate($author);
-
         if (count($errors) > 0) {
             foreach ($errors as $error) {
                 $r->getSession()->getFlashBag()->add('errors', $error->getMessage());
@@ -84,7 +84,7 @@ class AuthorController extends AbstractController
         $entityManager->persist($author);
         $entityManager->flush();
 
-        $r->getSession()->getFlashBag()->add('success', 'Author was created.');
+        $r->getSession()->getFlashBag()->add('success', $author->getName().' '.$author->getSurname().' was created.');
 
         return $this->redirectToRoute('author_index');
     }
@@ -144,7 +144,7 @@ class AuthorController extends AbstractController
         $entityManager->persist($author);
         $entityManager->flush();
 
-        $r->getSession()->getFlashBag()->add('success', 'Author was updated.');
+        $r->getSession()->getFlashBag()->add('success', $author->getName().' '.$author->getSurname().' was updated.');
 
         return $this->redirectToRoute('author_index');
     }
@@ -152,20 +152,23 @@ class AuthorController extends AbstractController
     /**
      * @Route("/author/delete/{id}", name="author_delete", methods={"POST"})
      */
-    public function delete($id): Response
+    public function delete(request $r, $id): Response
     {
         $author = $this->getDoctrine()
             ->getRepository(Author::class)
             ->find($id);
 
         if ($author->getBooks()->count() > 0) {
-            return new Response('Selected Author (#id: '.$author->getId().') can not be deleted, because '.$author->getName().' '.$author->getSurname().' has '.$author->getBooks()->count().' books.');
+            $r->getSession()->getFlashBag()->add('errors', 'Selected Author '.$author->getName().' '.$author->getSurname().' cannot be deleted ('.$author->getBooks()->count().' book/-s assigned).');
+            return $this->redirectToRoute('author_index');
         }
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($author);
         $entityManager->flush();
-
+        
+        $r->getSession()->getFlashBag()->add('success', $author->getName().' '.$author->getSurname().' was successfully deleted.');
+        
         return $this->redirectToRoute('author_index');
     }
 }

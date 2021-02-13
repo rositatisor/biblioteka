@@ -212,6 +212,7 @@ ul {
 .preview.person {
     background-image: url("http://localhost/biblioteka/assets/img/author3.png");
     float: right;
+    margin-right: 10px;
 }
 
 .title {
@@ -252,6 +253,10 @@ ul {
     width: 50%;
 }
 
+.card {
+    margin-top: 30px;
+}
+
 form {
     display: inline-block;
 }
@@ -259,6 +264,10 @@ form {
 .filter form,
 .sort form {
     height: 22px;
+}
+
+form.registration {
+    width: 100%;
 }
 
 .buttons.wide > form {
