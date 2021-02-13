@@ -18,6 +18,9 @@
             </form>
             <a href="{{path('book_index')}}">Clear filter</a>
         </div>
+        {% if books is empty %}
+        <p class="empty">There are no books to show.</p>
+        {% endif %}
         <ul class="item-list">
             {% for book in books %}
                 <div class="item">

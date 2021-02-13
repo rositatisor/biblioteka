@@ -34,10 +34,6 @@ class Author
      *     match=false,
      *     message="Your name cannot contain a number"
      * )
-     * * @Assert\Regex(
-     *     pattern     = "/^[a-z]+$/i",
-     *     htmlPattern = "^[a-zA-Z]+$"
-     * )
      */
     private $name;
 
@@ -55,7 +51,7 @@ class Author
      *     match=false,
      *     message="Your surname cannot contain a number"
      * )
-     * * @Assert\Regex(
+     * @Assert\Regex(
      *     pattern     = "/^[a-z]+$/i",
      *     htmlPattern = "^[a-zA-Z]+$"
      * )

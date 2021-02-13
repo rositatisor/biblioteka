@@ -19,6 +19,9 @@
             </form>
             <a href="{{path('author_index')}}">Clear sort</a>
         </div>
+        {% if authors is empty %}
+        <p class="empty">There are no authors to show.</p>
+        {% endif %}
         <ul class="item-list">
             {% for author in authors %}
                 <div class="items">
