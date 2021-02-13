@@ -249,12 +249,17 @@ ul {
     float: left;
     width: 100%;
 }
+
 .buttons.wide > .edit-btn {
     width: 50%;
 }
 
-.card {
+.card.register {
     margin-top: 30px;
+}
+
+.card {
+    margin-top: 0;
 }
 
 form {
