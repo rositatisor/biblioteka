@@ -11,7 +11,6 @@ This repository is for educational porpuses only.
 books | authors | users
 ------------ | ------------- | -------------
 id: int(11) <br> title: varchar(255) <br> isbn: varchar(20)  <br> pages: tinyint(4) unsigned <br> about: text <br> author_id : int(11) | id: int(11) <br> name: varchar(64) <br> surname: varchar(64) | id: int(11) <br> name: varchar(64) <br> email: email(64) <br> pass: password(128) 
-|
 
 2. There must be an opportunity to add new authors and books. Authors must be assigned from the select drop-down box.
 
