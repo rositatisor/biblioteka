@@ -9,7 +9,7 @@
             <p>Filter list by:</p>
             <form action="{{path('book_index')}}" method="GET">
                 <select name="author_id">
-                        <option value="0">View all</option>
+                    <option value="0">View all</option>
                     {% for author in authors %}
                         <option value="{{author.id}}" {% if authorId == author.id %} selected {% endif %}>{{author.name}} {{author.surname}}</option>
                     {% endfor %}

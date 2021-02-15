@@ -24,7 +24,7 @@
             <div class="new">
                 <label for="book_author">Author:</label>
                 <select name="book_author_id" id="book_author">
-                        <option value="0">Select author</option>
+                    <option value="0">Select author</option>
                     {% for author in authors %}
                         <option value="{{author.id}}" 
                         {% if author.id == book_author_id %} selected {% endif %}>
